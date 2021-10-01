@@ -1,5 +1,7 @@
 import express from "express";
 import { connectDataBase } from "./db/index.js";
+import productRouter from "./services/products/index.js"
+import reviewsRouter from "./services/reviews/index.js"
 
 const server = express();
 
@@ -10,7 +12,8 @@ const loggerMiddleware = (req, res, next) => {
 };
 server.use(express.json());
 server.use(loggerMiddleware)
-
+server.use("/products", productRouter)
+server.use("/reviews", reviewsRouter)
 server.listen(PORT, async () => {
     await connectDataBase()
   console.log( `server is running on port ${PORT}`);
